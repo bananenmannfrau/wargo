@@ -34,10 +34,12 @@ module.exports = function(argv) {
       cargo(argv, (out) => {
         let lines = out.split('\n')
         for (let i in lines) {
-          let filenames = JSON.parse(lines[i]).filenames
-          if (filenames && filenames.length > 0 && filenames[0].match("\.js$")) {
-            test(filenames[0])
-            return
+          if (lines[i].trim().length > 0) {
+            let filenames = JSON.parse(lines[i]).filenames
+            if (filenames && filenames.length > 0 && filenames[0].match("\.js$")) {
+              test(filenames[0])
+              return
+            }
           }
         }
         log("couldn't identify test binary")
