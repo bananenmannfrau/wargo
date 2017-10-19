@@ -9,11 +9,11 @@ rust:
 
 install:
   - npm install -g
-  - cargo new --bin exampleproj
+  - cargo new --lib exampleproj
 
 script:
   - cd exampleproj
-  - wargo build
+  - wargo test
 
 addons:
   sauce_connect:
