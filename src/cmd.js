@@ -52,7 +52,7 @@ module.exports = function(argv) {
       })
       return
     case 'build':
-      argv.push('--target=wasm32-unknown-emscripten')
+      argv.push('--target=asmjs-unknown-emscripten')
       cargo(argv)
       return
     default:
