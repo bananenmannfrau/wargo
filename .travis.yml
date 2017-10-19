@@ -9,7 +9,7 @@ rust:
 
 install:
   - npm install -g
-  - cargo new --lib exampleproj
+  - cargo new --bin exampleproj
 
 script:
   - cd exampleproj
