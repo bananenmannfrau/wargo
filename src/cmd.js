@@ -43,6 +43,7 @@ module.exports = function(argv) {
           }
         }
         log("couldn't identify test binary")
+        log("output was", JSON.stringify(out))
         process.exit(1)
       })
       return
