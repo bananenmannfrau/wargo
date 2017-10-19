@@ -36,7 +36,7 @@ function getEnv() {
 }
 
 module.exports = function() {
-  if (checkInstall('emcc --help')) {
+  if (checkInstall('emcc --version')) {
     log('using emcc already in $PATH')
     return
   }
@@ -65,9 +65,7 @@ module.exports = function() {
 
   let didErr = false
   checks.forEach(([cmd, name, errMsg]) => {
-    if (checkInstall(cmd)) {
-      log('   ', CHECK, name)
-    } else {
+    if (!checkInstall(cmd)) {
       log('   ', CROSS, name)
       log('     ', chalk.red(errMsg))
       didErr = true
@@ -84,7 +82,7 @@ module.exports = function() {
       log('found emsdk installation in ~/.emsdk')
       log('setting environment...')
       getEnv()
-      if (checkInstall('emcc --help')) {
+      if (checkInstall('emcc --version')) {
         return
       } else {
         log('couldn\'t find emcc')
@@ -102,7 +100,7 @@ module.exports = function() {
     child_process.execSync(`cd ~/.emsdk && ./emsdk install sdk-1.37.22-64bit`, {env: process.env, stdio: [null, 1, 2]})
     child_process.execSync(`cd ~/.emsdk && ./emsdk activate sdk-1.37.22-64bit`, {env: process.env, stdio: [null, 1, 2]})
     getEnv()
-    if (checkInstall('emcc --help')) {
+    if (checkInstall('emcc --version')) {
       return
     } else {
       log('couldn\'t install emcc. file a bug at https://github.com/lord/wargo?')
@@ -122,5 +120,7 @@ module.exports = function() {
     if (!checkInstall('test -x ~/.emccinstall/emscripten/emcc')) {
       log('couldn\'t install emcc. file a bug at https://github.com/lord/wargo?')
     }
+    child_process.execSync(`emcc --version`, {env: process.env, stdio: 'inherit'})
+    child_process.execSync(`which emcc`, {env: process.env, stdio: 'inherit'})
   }
 }
