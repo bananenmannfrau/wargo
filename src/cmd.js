@@ -29,7 +29,7 @@ module.exports = function(argv) {
     case 'setup':
       process.exit(0)
     case 'test':
-      argv.push('--target=wasm32-unknown-emscripten')
+      argv.push('--target=asmjs-unknown-emscripten')
       argv.push('--message-format=json')
       argv.push('--no-run')
       cargo(argv, (out) => {
