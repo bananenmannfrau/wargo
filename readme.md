@@ -37,3 +37,5 @@ Don't want to install Selenium? `wargo` can also run tests using [Sauce Connect]
 - [ ] errors for webdriver connection failure
 - [ ] detect python 2 vs 3
 - [ ] print less crap to the console
+- [ ] find test to run when can't find line.profile.test === true
+- [x] sha check downloaded binaries

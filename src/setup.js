@@ -13,6 +13,7 @@ const LINUX_SCRIPT = `
 mkdir ~/.emccinstall
 cd ~/.emccinstall &&
 curl -L -o emscripten.tgz https://github.com/koute/emscripten-build/releases/download/emscripten-1.37.21-1-x86_64-unknown-linux-gnu/emscripten-1.37.21-1-x86_64-unknown-linux-gnu.tgz &&
+echo "a756303eca47460ebfef88f3dece94725f0905f7  emscripten.tgz" | sha1sum -c &&
 tar -xf emscripten.tgz
 `
 
