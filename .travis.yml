@@ -13,7 +13,7 @@ install:
 
 script:
   - cd exampleproj
-  - wargo test
+  - wargo test --verbose
 
 addons:
   sauce_connect:
