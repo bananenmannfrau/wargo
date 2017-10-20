@@ -80,7 +80,6 @@ module.exports = function() {
       child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_XENIAL} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
       child_process.execSync(`cd ~/.emsdk && ./emsdk activate --build=Release sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
     } else if (process.detailedos.codename === "trusty") {
-      log('installing trusty image')
       child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_TRUSTY} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
       child_process.execSync(`cd ~/.emsdk && ./emsdk activate --build=Release sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
     } else if (process.detailedos.dist === "Debian") {

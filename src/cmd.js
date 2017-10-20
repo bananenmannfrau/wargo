@@ -45,8 +45,8 @@ module.exports = function(argv) {
             if (lines[i].trim().length > 0) {
               let dat = JSON.parse(lines[i])
               if (dat && dat.profile && dat.profile.test)
-                if (dat.filenames && dat.filenames.length > 0 && filenames[0].match("\.js$")) {
-                  test(filenames[0])
+                if (dat.filenames && dat.filenames.length > 0 && dat.filenames[0].match("\.js$")) {
+                  test(dat.filenames[0])
                   return
                 } else {
                   child_process.execSync('find target', {env: process.env, stdio: 'inherit'})
