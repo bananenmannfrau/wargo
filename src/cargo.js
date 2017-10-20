@@ -12,7 +12,7 @@ const FIXLLVMMAC = `
   ln -s $NEWLLVM $OLDLLVM
 `
 
-module.exports = function(args, done, tryagain=true) {
+module.exports = function(args, captureStdOut=false, done=null, tryagain=true) {
   let cmd = 'cargo ' + args.join(' ')
   log(`running '${cmd}'`)
   let res = child_process.exec(`${cmd} --color always`, {env: process.env, stdio: 'pipe'})
@@ -21,7 +21,7 @@ module.exports = function(args, done, tryagain=true) {
   res.stdout.on('data', (dat) => {
     outBuf += dat.toString()
     // if not capturing output to done, print
-    if (!done) {
+    if (!captureStdOut) {
       process.stdout.write(dat)
     }
   })
