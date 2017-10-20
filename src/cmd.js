@@ -34,8 +34,9 @@ module.exports = function(argv) {
       process.exit(0)
     case 'test':
       argv.push('--target=wasm32-unknown-emscripten')
-      argv.push('--message-format=json')
       argv.push('--no-run')
+      cargo(argv) // run first with std non-json output
+      argv.push('--message-format=json')
       cargo(argv, (out) => {
         let lines = out.split('\n')
         for (let i in lines) {

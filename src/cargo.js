@@ -20,6 +20,10 @@ module.exports = function(args, done, tryagain=true) {
   let outBuf = ""
   res.stdout.on('data', (dat) => {
     outBuf += dat.toString()
+    // if not capturing output to done, print
+    if (!done) {
+      process.stdout.write(dat)
+    }
   })
   res.stderr.on('data', (dat) => {
     errBuf += dat.toString()
