@@ -25,7 +25,10 @@ module.exports = function(argv) {
   }
 
   setup()
+
+  // sanity checks
   child_process.execSync('emcc -v', {env: process.env, stdio: 'inherit'})
+
   switch (subcommand) {
     case 'setup':
       process.exit(0)

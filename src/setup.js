@@ -76,19 +76,19 @@ module.exports = function() {
     log('found emsdk installation in ~/.emsdk')
   } else {
     log('emsdk not found, installing to ~/.emsdk...')
-    // if (process.detailedos.codename === "xenial") {
-    //   child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_XENIAL} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
-    //   child_process.execSync(`cd ~/.emsdk && ./emsdk activate --build=Release sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
-    // } else if (process.detailedos.codename === "trusty") {
-    //   log('installing trusty image')
-    //   child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_TRUSTY} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
-    //   child_process.execSync(`cd ~/.emsdk && ./emsdk activate --build=Release sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
-    // } else if (process.detailedos.dist === "Debian") {
-    //   child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_DEBIAN} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
-    //   child_process.execSync(`cd ~/.emsdk && ./emsdk activate --build=Release sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
-    // } else {
+    if (process.detailedos.codename === "xenial") {
+      child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_XENIAL} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
+      child_process.execSync(`cd ~/.emsdk && ./emsdk activate --build=Release sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
+    } else if (process.detailedos.codename === "trusty") {
+      log('installing trusty image')
+      child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_TRUSTY} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
+      child_process.execSync(`cd ~/.emsdk && ./emsdk activate --build=Release sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
+    } else if (process.detailedos.dist === "Debian") {
+      child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_DEBIAN} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
+      child_process.execSync(`cd ~/.emsdk && ./emsdk activate --build=Release sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
+    } else {
       child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL} | tar --strip-components=1 -zxvf -`, {stdio: 'inherit', env: process.env})
-    // }
+    }
     if (!checkInstall('test -x ~/.emsdk/emsdk')) {
       log('installation failed! file a bug at https://github.com/lord/wargo?')
       process.exit(1)
