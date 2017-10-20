@@ -7,10 +7,8 @@ const path = require('path')
 
 const CHECK = chalk.green.bold('✔')
 const CROSS = chalk.red.bold('✘')
-let EMSDK_URL = "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
-if (process.platform !== "darwin") {
-  EMSDK_URL = "https://github.com/lord/emsdk-build/releases/download/test/emsdk.tgz"
-}
+const EMSDK_URL = "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
+const EMSDK_URL_PREBUILT = "https://github.com/lord/emsdk-build/releases/download/test/emsdk.tgz"
 
 function checkInstall(cmd) {
   try {
@@ -76,7 +74,12 @@ module.exports = function() {
     log('found emsdk installation in ~/.emsdk')
   } else {
     log('emsdk not found, installing to ~/.emsdk...')
-    child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL} | tar --strip-components=1 -zxvf -`, {stdio: 'pipe', env: process.env})
+    if (process.platform === "darwin") {
+      child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL} | tar --strip-components=1 -zxvf -`, {stdio: 'inherit', env: process.env})
+    } else {
+      child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT} | tar --strip-components=1 -zxvf -`, {stdio: 'inherit', env: process.env})
+      child_process.execSync(`cd ~/.emsdk && ./emsdk activate sdk-incoming-64bit`, {env: process.env, stdio: [null, 1, 2]})
+    }
     if (!checkInstall('test -x ~/.emsdk/emsdk')) {
       log('installation failed! file a bug at https://github.com/lord/wargo?')
       process.exit(1)
