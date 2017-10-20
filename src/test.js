@@ -44,7 +44,9 @@ module.exports = function(filename) {
     key: process.env.SAUCE_ACCESS_KEY,
     host: process.env.WEBDRIVER_HOST || 'localhost',
     port: process.env.WEBDRIVER_PORT || 4445,
-    desiredCapabilities: JSON.parse(process.env.WEBDRIVER_CAPABILITIES || "{}")
+    desiredCapabilities: JSON.parse(process.env.WEBDRIVER_CAPABILITIES || `{
+      "tunnel-identifier": ${process.env.TRAVIS_JOB_NUMBER},
+    }`)
   })
 
   client
