@@ -9,7 +9,8 @@ const CHECK = chalk.green.bold('✔')
 const CROSS = chalk.red.bold('✘')
 const EMSDK_URL = "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
 const EMSDK_URL_PREBUILT_DEBIAN = "https://github.com/lord/emsdk-build/releases/download/initial/emsdk-debian.tgz"
-const EMSDK_URL_PREBUILT_UBUNTU = "https://github.com/lord/emsdk-build/releases/download/initial/emsdk-ubuntu.tgz"
+const EMSDK_URL_PREBUILT_TRUSTY = "https://github.com/lord/emsdk-build/releases/download/initial/emsdk-trusty.tgz"
+const EMSDK_URL_PREBUILT_XENIAL = "https://github.com/lord/emsdk-build/releases/download/initial/emsdk-xenial.tgz"
 
 function checkInstall(cmd) {
   try {
@@ -75,8 +76,11 @@ module.exports = function() {
     log('found emsdk installation in ~/.emsdk')
   } else {
     log('emsdk not found, installing to ~/.emsdk...')
-    if (process.detailedos.dist === "Ubuntu Linux") {
-      child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_UBUNTU} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
+    if (process.detailedos.codename === "xenial") {
+      child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_XENIAL} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
+      child_process.execSync(`cd ~/.emsdk && ./emsdk activate sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
+    } else if (process.detailedos.codename === "trusty") {
+      child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_TRUSTY} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
       child_process.execSync(`cd ~/.emsdk && ./emsdk activate sdk-incoming-64bit`, {env: process.env, stdio: 'inherit'})
     } else if (process.detailedos.dist === "Debian") {
       child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL_PREBUILT_DEBIAN} | tar --strip-components=1 -zxf -`, {stdio: 'inherit', env: process.env})
