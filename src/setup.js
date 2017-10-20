@@ -106,21 +106,4 @@ module.exports = function() {
   } else {
     log('couldn\'t install emcc. file a bug at https://github.com/lord/wargo?')
   }
-  // if (!checkInstall('test -x ~/.emccinstall/emscripten/emcc')) {
-  //   log('installing emcc...')
-  //   child_process.execSync(LINUX_SCRIPT, {env: process.env, stdio: 'inherit'})
-  // }
-  // let epath = path.join(process.env.HOME, '.emccinstall', 'emscripten')
-  // let epathFastcomp = path.join(process.env.HOME, '.emccinstall', 'emscripten-fastcomp')
-
-  // process.env.PATH = [process.env.PATH, epath, epathFastcomp].join(':')
-  // process.env.EMSCRIPTEN = epath
-  // process.env.EMSCRIPTEN_FASTCOMP = epathFastcomp
-  // process.env.LLVM = epathFastcomp
-  // if (!checkInstall('test -x ~/.emccinstall/emscripten/emcc')) {
-  //   log('couldn\'t install emcc. file a bug at https://github.com/lord/wargo?')
-  // }
-  // child_process.execSync(`emcc --version`, {env: process.env, stdio: 'inherit'})
-  // child_process.execSync(`which emcc`, {env: process.env, stdio: 'inherit'})
-  }
 }
