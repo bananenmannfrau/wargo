@@ -12,14 +12,6 @@ if (process.platform !== "darwin") {
   EMSDK_URL = "https://github.com/lord/emsdk-build/releases/download/test/emsdk.tgz"
 }
 
-const LINUX_SCRIPT = `
-mkdir ~/.emccinstall
-cd ~/.emccinstall &&
-curl -L -o emscripten.tgz https://github.com/koute/emscripten-build/releases/download/emscripten-1.37.21-1-x86_64-unknown-linux-gnu/emscripten-1.37.21-1-x86_64-unknown-linux-gnu.tgz &&
-echo "a756303eca47460ebfef88f3dece94725f0905f7  emscripten.tgz" | sha1sum -c &&
-tar -xf emscripten.tgz
-`
-
 function checkInstall(cmd) {
   try {
     child_process.execSync(cmd, {stdio: 'pipe', env: process.env})
@@ -84,7 +76,7 @@ module.exports = function() {
     log('found emsdk installation in ~/.emsdk')
   } else {
     log('emsdk not found, installing to ~/.emsdk...')
-    child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl ${EMSDK_URL} | tar --strip-components=1 -zxvf -`, {stdio: 'pipe', env: process.env})
+    child_process.execSync(`mkdir ~/.emsdk && cd ~/.emsdk && curl -L ${EMSDK_URL} | tar --strip-components=1 -zxvf -`, {stdio: 'pipe', env: process.env})
     if (!checkInstall('test -x ~/.emsdk/emsdk')) {
       log('installation failed! file a bug at https://github.com/lord/wargo?')
       process.exit(1)
