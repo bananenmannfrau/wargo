@@ -52,7 +52,7 @@ module.exports = function(filename) {
     key: process.env.SAUCE_ACCESS_KEY,
     host: process.env.WEBDRIVER_HOST || 'localhost',
     port: process.env.WEBDRIVER_PORT || 4445,
-    desiredCapabilities: capabilities)
+    desiredCapabilities: capabilities
   })
 
   client
