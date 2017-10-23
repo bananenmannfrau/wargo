@@ -1,7 +1,7 @@
 "use strict";
 
 const log = require("./log");
-const getChecksForDistro = require("./helpers").getChecksForDistro;
+const getChecksForDistro = require("./dependencyChecks").getChecksForDistro;
 const child_process = require("child_process");
 const chalk = require("chalk");
 
@@ -48,7 +48,8 @@ module.exports = function() {
 
   log("checking dependencies...");
 
-  const checks = getChecksForDistro(process.detailedos.dist);
+  const { dist, os } = process.detailedos;
+  const checks = getChecksForDistro(os, dist);
 
   let didErr = false;
   checks.forEach(([cmd, name, errMsg, fn = null]) => {

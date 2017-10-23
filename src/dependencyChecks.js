@@ -63,7 +63,7 @@ const getChecksWithCommands = command => [
   ]
 ];
 
-function getChecksForDistro(distro) {
+function getChecksForDistro(os, distro) {
   const distroChecks = {
     darwin: [
       [
@@ -75,6 +75,11 @@ function getChecksForDistro(distro) {
         "rustup target add wasm32-unknown-emscripten",
         "rustup",
         "rustup not found. Try installing at https://rustup.rs and rerunning?"
+      ],
+      [
+        "cargo --version",
+        "cargo",
+        "cargo not found. Try installing at https://rustup.rs and rerunning?"
       ]
     ].concat(getChecksWithCommands("brew install")),
     fedora: [
@@ -136,14 +141,21 @@ function getChecksForDistro(distro) {
       ]
     ]
   };
-  const lowerKeyDistro = distro.toLowerCase();
-  const distroKey = Object.keys(distroChecks).find(key =>
-    key.includes(lowerKeyDistro)
-  );
-  if (!distroKey) {
-    return distroChecks.default;
+  const lowerKeyOs = os.toLowerCase();
+  if (lowerKeyOs === "darwin") {
+    return distroChecks.darwin;
+  } else if (distro) {
+    const lowerKeyDistro = distro.toLowerCase();
+    const distroKey = Object.keys(distroChecks).find(key =>
+      key.includes(lowerKeyDistro)
+    );
+    if (!distroKey) {
+      return distroChecks.default;
+    } else {
+      return distroChecks[distroKey];
+    }
   } else {
-    return distroChecks[distroKey];
+    return distroChecks.default;
   }
 }
 
